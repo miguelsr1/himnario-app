@@ -176,7 +176,7 @@ body {
 }
 
 .header-icon {
-    width: 60px;
+    width: 160px;
     height: 60px;
     display: flex;
     align-items: center;
@@ -200,7 +200,7 @@ body {
 }
 
 #slide-title {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     margin: 0;
     color: var(--text-primary);
     font-weight: 800;
@@ -209,7 +209,7 @@ body {
 }
 
 #slide-subtitle {
-    font-size: 0.85rem;
+    font-size: 1.25rem;
     margin: 4px 0 0 0;
     color: var(--text-secondary);
     text-transform: uppercase;
@@ -221,7 +221,7 @@ body {
 }
 
 .header-spacer {
-    width: 60px;
+    width: 160px;
     /* Balance left icon */
 }
 
