@@ -4,15 +4,63 @@
   "description": "Aplicación de escritorio para proyección de himnos",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:linux": "electron-builder --linux"
   },
   "keywords": [
     "himnario",
     "electron"
   ],
-  "author": "Antigravity",
+  "homepage": "https://github.com/himnario/himnario-app",
+  "author": {
+    "name": "Antigravity",
+    "email": "info@himnario.app"
+  },
   "license": "ISC",
   "devDependencies": {
-    "electron": "^33.0.0"
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.himnario.app",
+    "productName": "Himnario",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!**/*.md",
+      "!dist",
+      "!node_modules"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Utility"
+    }
   }
 }

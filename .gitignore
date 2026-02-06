@@ -1,1 +1,26 @@
+# Dependencies
 node_modules/
+
+# Build output
+dist/
+
+# Electron build cache
+.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+
+himnos.json

@@ -172,11 +172,75 @@ function renderSlide() {
         // Trigger reflow to ensure the browser sees the 'fade-in' state
         void slideContent.offsetWidth;
 
+        // Adjust font size dynamically
+        adjustFontSize();
+
         // Start the transition to visible
         slideContent.classList.remove('fade-in');
     }, 250); // Wait for fade out
 
     updatePagination();
+}
+
+function adjustFontSize() {
+    const container = slideContent.parentElement; // lyrics-container
+    const lines = slideContent.textContent.split('\n');
+
+    // Get available space
+    const containerWidth = container.clientWidth * 0.9; // 90% to leave some margin
+    const containerHeight = container.clientHeight * 0.7; // 70% to account for badge and spacing
+
+    // Binary search for optimal font size
+    let minSize = 10; // minimum readable size
+    let maxSize = 200; // maximum size
+    let optimalSize = minSize;
+
+    // Create a temporary element to measure text
+    const tempElement = document.createElement('div');
+    tempElement.style.position = 'absolute';
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.whiteSpace = 'pre';
+    tempElement.style.fontWeight = '800';
+    tempElement.style.lineHeight = '1.3';
+    document.body.appendChild(tempElement);
+
+    while (minSize <= maxSize) {
+        const midSize = Math.floor((minSize + maxSize) / 2);
+        tempElement.style.fontSize = midSize + 'px';
+
+        // Check if all lines fit
+        let fits = true;
+        let totalHeight = 0;
+
+        for (let line of lines) {
+            tempElement.textContent = line || ' '; // Handle empty lines
+            const lineWidth = tempElement.offsetWidth;
+            const lineHeight = tempElement.offsetHeight;
+
+            if (lineWidth > containerWidth) {
+                fits = false;
+                break;
+            }
+            totalHeight += lineHeight;
+        }
+
+        if (totalHeight > containerHeight) {
+            fits = false;
+        }
+
+        if (fits) {
+            optimalSize = midSize;
+            minSize = midSize + 1;
+        } else {
+            maxSize = midSize - 1;
+        }
+    }
+
+    // Clean up
+    document.body.removeChild(tempElement);
+
+    // Apply the optimal font size
+    slideContent.style.fontSize = optimalSize + 'px';
 }
 
 function updatePagination() {
